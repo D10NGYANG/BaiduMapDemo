@@ -2,11 +2,6 @@ package com.hailiao.baidumapdemo.activity.offline
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baidu.mapapi.map.offline.MKOLUpdateElement
@@ -15,6 +10,7 @@ import com.hailiao.baidumapdemo.adapter.OfflineManagerAdapter
 import com.hailiao.baidumapdemo.databinding.FragmentOfflineDownloadingBinding
 import com.hailiao.baidumapdemo.model.OfflineDataModel
 import com.hailiao.baidumapdemo.utils.showSnackBar
+import com.hi.dhl.binding.databind
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -25,21 +21,13 @@ import javax.inject.Inject
  * @Time: 2021/2/22 10:08 上午
  */
 @AndroidEntryPoint
-class OfflineDownloadingFragment : Fragment() {
+class OfflineDownloadingFragment : Fragment(R.layout.fragment_offline_downloading) {
 
-    private lateinit var binding: FragmentOfflineDownloadingBinding
+    private val binding: FragmentOfflineDownloadingBinding by databind()
     private lateinit var adapter: OfflineManagerAdapter
 
     @Inject
     lateinit var dataModel: OfflineDataModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offline_downloading, container, false)
-        return binding.root
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

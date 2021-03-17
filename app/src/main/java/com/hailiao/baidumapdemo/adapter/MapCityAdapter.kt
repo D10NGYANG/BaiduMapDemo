@@ -1,16 +1,15 @@
 package com.hailiao.baidumapdemo.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.baidu.mapapi.map.offline.MKOLUpdateElement
 import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.bean.MapCityInfo
 import com.hailiao.baidumapdemo.databinding.ItemOfflineMapBinding
+import com.hi.dhl.binding.databind
 
 class MapCityAdapter constructor(
     val mList: MutableList<MapCityInfo> = mutableListOf(),
@@ -39,13 +38,12 @@ class MapCityAdapter constructor(
         val info = this.mList[index]
         info.element = status
         this.mList[index] = info
-        //notifyItemChanged(index)
         notifyItemChanged(index, R.id.txt_tips)
     }
 
-    class ViewHolder constructor(
-        val binding: ItemOfflineMapBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder constructor(view: View): RecyclerView.ViewHolder(view) {
+
+        val binding: ItemOfflineMapBinding by databind()
 
         fun bind(item: MapCityInfo, selectIdLive: MutableLiveData<Int>) {
             binding.cityNameText = item.record.cityName
@@ -69,13 +67,7 @@ class MapCityAdapter constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemOfflineMapBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.item_offline_map,
-            parent,
-            false
-        )
-        return ViewHolder(binding)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_offline_map, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -2,14 +2,11 @@ package com.hailiao.baidumapdemo.activity.offline
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.databinding.FragmentOfflineMainBinding
 import com.hailiao.baidumapdemo.model.OfflineDataModel
+import com.hi.dhl.binding.databind
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,20 +16,12 @@ import javax.inject.Inject
  * @Time: 2021/2/22 9:38 上午
  */
 @AndroidEntryPoint
-class OfflineMainFragment : Fragment() {
+class OfflineMainFragment : Fragment(R.layout.fragment_offline_main) {
 
-    private lateinit var binding: FragmentOfflineMainBinding
+    private val binding: FragmentOfflineMainBinding by databind()
 
     @Inject
     lateinit var dataModel: OfflineDataModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offline_main, container, false)
-        return binding.root
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -2,6 +2,7 @@ package com.hailiao.baidumapdemo.adapter
 
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baidu.mapapi.map.offline.MKOLUpdateElement
 import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.databinding.ItemOfflineMapBinding
+import com.hi.dhl.binding.databind
 
 class OfflineManagerAdapter constructor(
     val mList: MutableList<MKOLUpdateElement> = mutableListOf()
@@ -40,15 +42,14 @@ class OfflineManagerAdapter constructor(
             val old = this.mList[index]
             if (old.isSame(status)) return
             this.mList[index] = status
-            //notifyItemChanged(index)
             notifyItemChanged(index, R.id.txt_tips)
             notifyItemChanged(index, R.id.progress_bar)
         }
     }
 
-    class ViewHolder constructor(
-        val binding: ItemOfflineMapBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder constructor(view: View): RecyclerView.ViewHolder(view) {
+
+        val binding: ItemOfflineMapBinding by databind()
 
         fun bind(item: MKOLUpdateElement) {
             binding.cityNameText = item.cityName
@@ -72,13 +73,7 @@ class OfflineManagerAdapter constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemOfflineMapBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.item_offline_map,
-            parent,
-            false
-        )
-        return ViewHolder(binding)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate( R.layout.item_offline_map, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

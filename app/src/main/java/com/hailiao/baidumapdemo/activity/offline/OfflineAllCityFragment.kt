@@ -1,21 +1,18 @@
 package com.hailiao.baidumapdemo.activity.offline
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baidu.mapapi.map.offline.MKOLUpdateElement
-import com.baidu.mapapi.map.offline.MKOfflineMap
 import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.adapter.MapCityAdapter
 import com.hailiao.baidumapdemo.bean.MapCityInfo
 import com.hailiao.baidumapdemo.databinding.FragmentOfflineAllCityBinding
 import com.hailiao.baidumapdemo.model.OfflineDataModel
 import com.hailiao.baidumapdemo.utils.showSnackBar
+import com.hi.dhl.binding.databind
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -26,22 +23,14 @@ import javax.inject.Inject
  * @Time: 2021/2/22 2:29 下午
  */
 @AndroidEntryPoint
-class OfflineAllCityFragment : Fragment() {
+class OfflineAllCityFragment : Fragment(R.layout.fragment_offline_all_city) {
 
-    private lateinit var binding: FragmentOfflineAllCityBinding
+    private val binding: FragmentOfflineAllCityBinding by databind()
     private lateinit var adapter1: MapCityAdapter
     private lateinit var adapter2: MapCityAdapter
 
     @Inject
     lateinit var dataModel: OfflineDataModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offline_all_city, container, false)
-        return binding.root
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

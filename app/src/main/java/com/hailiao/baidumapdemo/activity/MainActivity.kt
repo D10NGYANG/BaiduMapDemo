@@ -3,7 +3,6 @@ package com.hailiao.baidumapdemo.activity
 import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
@@ -16,6 +15,7 @@ import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.activity.offline.OfflineActivity
 import com.hailiao.baidumapdemo.databinding.ActMainBinding
 import com.hailiao.baidumapdemo.utils.goTo
+import com.hi.dhl.binding.databind
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
@@ -24,12 +24,12 @@ import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActMainBinding
+    private val binding: ActMainBinding by databind(R.layout.act_main)
     private lateinit var mLocationClient: LocationClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.act_main)
+        binding.executePendingBindings()
         binding.mapView.onCreate(this, savedInstanceState)
 
         // 修改地图类型

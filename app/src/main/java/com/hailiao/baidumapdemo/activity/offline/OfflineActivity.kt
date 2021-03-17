@@ -1,26 +1,26 @@
 package com.hailiao.baidumapdemo.activity.offline
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import com.baidu.mapapi.map.offline.MKOfflineMap
 import com.hailiao.baidumapdemo.R
 import com.hailiao.baidumapdemo.databinding.ActOfflineBinding
 import com.hailiao.baidumapdemo.model.OfflineDataModel
+import com.hi.dhl.binding.databind
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OfflineActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActOfflineBinding
+    private val binding: ActOfflineBinding by databind(R.layout.act_offline)
 
     @Inject
     lateinit var dataModel: OfflineDataModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.act_offline)
+        binding.executePendingBindings()
 
         dataModel.mkOfflineMap = MKOfflineMap()
         dataModel.mkOfflineMap?.init { type, state ->
@@ -32,11 +32,5 @@ class OfflineActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        // 不能destroy，否则会导致定位图标消失
-        //dataModel.mkOfflineMap?.destroy()
-        super.onDestroy()
     }
 }
